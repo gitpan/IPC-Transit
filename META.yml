@@ -7,6 +7,7 @@ build_requires:
   IPC::Msg: 0
   POSIX: 0
   Data::Dumper: 0
+  Data::Serializer: 0
   Test::Pod: 0
 configure_requires:
   Module::Build: 0
@@ -20,7 +21,7 @@ name: IPC-Transit
 provides:
   IPC::Transit:
     file: lib/IPC/Transit.pm
-    version: 0.01
+    version: 0.01_2
 requires:
   IPC::SysV: 0
   IPC::Msg: 0
@@ -28,4 +29,4 @@ requires:
   Data::Dumper: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.01_2

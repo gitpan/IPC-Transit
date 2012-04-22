@@ -6,7 +6,7 @@
    "dynamic_config" : 1,
    "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.120630",
    "license" : [
-      "perl_5"
+      "perl"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -19,7 +19,8 @@
             "IPC::SysV" : "0",
             "IPC::Msg" : "0",
             "POSIX" : "0",
-            "Data::Dumper" : "0"
+            "Data::Dumper" : "0",
+            "Data::Serializer" : "0"
          }
       },
       "configure" : {
@@ -39,7 +40,7 @@
    "provides" : {
       "IPC::Transit" : {
          "file" : "lib/IPC/Transit.pm",
-         "version" : "0.01"
+         "version" : "0.01_2"
       }
    },
    "release_status" : "unstable",
@@ -48,5 +49,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.01"
+   "version" : "0.01_2"
 }

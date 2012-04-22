@@ -1,0 +1,41 @@
+Totally random thoughts and stream of consciousness.
+
+This stuff might be inaccurate, out of date, wrong and/or crazy.
+
+Serialization
+
+
+YAML: starts with ---
+JSON: Starts with {
+Data::Dumper: Starts with $VAR1 = 
+Storable: Looks like it starts with Octal 003404
+
+
+IPC::Transit::Serialize
+
+freeze()
+takes:  message
+        args to control freeze
+returns: fully serialized message
+
+thaw()
+takes: fully serialized message
+returns:    message
+
+
+
+
+
+
+The Message:
+Must be a hash reference.
+
+Only the .transit key is reserved.
+By default, it is not returned.
+Maybe some stuff it has:
+.transit => {
+    checksum => $sum,
+    checksum_type => $what kind of crypto,
+    send_ts => $epoch_time,
+    receive_ts => $epoch_time,
+},

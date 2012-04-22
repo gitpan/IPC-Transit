@@ -1,8 +1,0 @@
-*.swp
-Build
-MYMETA.json
-MYMETA.yml
-Makefile
-_build
-blib
-pm_to_blib
