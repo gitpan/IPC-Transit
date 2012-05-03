@@ -1,13 +1,30 @@
 #!env perl
 use strict;use warnings;
 
+use Data::Dumper;
 use lib '../lib';
 use lib 'lib';
-use Test::More tests => 2;
+use Test::More tests => 65;
 
 use_ok('IPC::Transit') or exit;
 use_ok('IPC::Transit::Test') or exit;
 
+my $q = 'test_local_queue';
+ok IPC::Transit::local_queue(qname => $q);
+IPC::Transit::send(qname => $q, message => { a => 'b' });
+ok IPC::Transit::stat(qname => $q)->{qnum} == 1;
+ok my $m = IPC::Transit::receive(qname => $q)->{a} eq 'b';
+for(1..20) {
+    ok IPC::Transit::send(qname => 'test_local_queue', message => { a => $_ });
+}
+foreach my $ct (1..20) {
+    ok my $m = IPC::Transit::receive(qname => 'test_local_queue');
+    ok $m->{a} == $ct;
+}
 
-#clean out the queue if there's something in it
-IPC::Transit::Test::clear_test_queue();
+__END__
+IPC::Transit::send(qname => 'test', message => { a => $_ });
+IPC::Transit::send(qname => 'test', message => { a => $_ });
+print Dumper IPC::Transit::stat(qname => 'test');
+
+system 'ipcs -a -q | tail';

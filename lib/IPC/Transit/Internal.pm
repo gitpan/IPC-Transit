@@ -22,6 +22,37 @@ _initialize_queue {
     }
     return $queue_cache->{$qid};
 }
+sub
+_drop_all_queues {
+    foreach my $q (values %{$queue_cache}) {
+        $q->remove;
+    }
+}
+
+sub
+_stat {
+    my %args = @_;
+    my $qid = _get_queue_id(%args);
+    _initialize_queue(%args);
+    my @heads = qw(uid gid cuid cgid mode qnum qbytes lspid lrpid stime rtime ctime);
+    my $ret = {};
+    my @items = @{$queue_cache->{$qid}->stat};
+    foreach my $item (@items) {
+        $ret->{shift @heads} = $item;
+    }
+    $ret->{qname} = $args{qname};
+    return $ret;
+}
+}
+
+sub
+_stats {
+    my $ret = [];
+    my $config = _load_transit_config();
+    foreach my $queue_name (keys %{$config->{queues}}) {
+        push @$ret, IPC::Transit::stat(qname => $queue_name);
+    }
+    return $ret;
 }
 
 sub
@@ -113,9 +144,9 @@ _get_queue_id {
         }
         my $next_number;
         if(scalar keys %{$config->{queues}}) {
-            {   my @current_numbers = sort {$a <=> $b} values %{$config->{queues}};
+            {   my @current_numbers = sort {$a->{qid} <=> $b->{qid}} values %{$config->{queues}};
                 my $highest_number = pop @current_numbers;
-                $next_number = $highest_number++;
+                $next_number = $highest_number->{qid} + 1;
             }
         } else {
             #$config->{queues}->{$qname} = { qid => 1 };
@@ -126,7 +157,6 @@ _get_queue_id {
         _write_transit_config();
     };
 
-    _unlock_config_file();
     return $config->{queues}->{$qname}->{qid};
 }
 

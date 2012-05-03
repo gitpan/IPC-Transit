@@ -1,0 +1,10 @@
+#!perl
+
+use strict;use warnings;
+use IPC::Transit;
+
+my $format = '%-50s%-20s';
+my $info = IPC::Transit::stats();
+foreach my $queue (@{$info}) {
+    printf("$format\n", $queue->{qname}, $queue->{qnum});
+}

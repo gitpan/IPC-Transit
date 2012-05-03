@@ -1,0 +1,18 @@
+#!perl
+
+use strict;use warnings;
+use IPC::Transit;
+
+my $message_text = shift or die 'perl message required';
+my $qname = shift or die 'qname required';
+
+our $message;
+eval '$message = ' . $message_text;
+die "the perl message passed in first argument is invalid: $@" if $@;
+die "the perl message passed in first argument is empty" unless $message;
+die "the perl message passed in first argument is not a reference"
+    unless ref $message;
+die "the perl message passed in first argument is not a HASH reference"
+    unless ref $message eq 'HASH';
+
+print IPC::Transit::send(qname => $qname, message => $message), "\n";
