@@ -31,6 +31,10 @@ send {
         unless $message;
     die "IPC::Transit::send: parameter 'message' must be a HASH reference"
         if ref $message ne 'HASH';
+    die "IPC::Transit::send: passed 'message' has a '.transit' key that is not a HASH reference"
+        if $message->{'.transit'} and ref $message->{'.transit'} ne 'HASH';
+    $message->{'.transit'} = {} unless $message->{'.transit'};
+    $message->{'.transit'}->{send_ts} = time;
 
     if($local_queues and $local_queues->{$qname}) {
         push @{$local_queues->{$qname}}, \%args;
@@ -95,6 +99,7 @@ receive {
     eval {
         $args{message} = IPC::Transit::Serialize::thaw(%args);
     };
+    delete $args{message}->{'.transit'} unless $args{extended};
     return $args{message};
 }
 
@@ -132,6 +137,8 @@ IPC::Transit - A framework for high performance message passing
 =head1 DESCRIPTION
 
 This queue framework has the following goals:
+    
+    :)
 
 =over 4
 
