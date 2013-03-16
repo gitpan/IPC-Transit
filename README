@@ -9,6 +9,14 @@ SYNOPSIS
       #...the same or a different process on the same machine
       my $message = IPC::Transit::receive(qname => 'test');
 
+      #remote transit
+      remote-transitd &  #run 'outgoing' transitd gateway
+      IPC::Transit::send(qname => 'test', message => { a => 'b' }, destination => 'some.other.box.com');
+
+      #On 'some.other.box.com':
+      remote-transit-gateway &  #run 'incoming' transitd gateway
+      my $message = IPC::Transit::receive(qname => 'test');
+
 DESCRIPTION
 
     This queue framework has the following goals:
@@ -37,15 +45,8 @@ DESCRIPTION
 
     *   Guaranteed Delivery
 
-SEE ALSO
-    Todo
-
 TODO
-    Cross box delivery.
-
     Crypto
-
-    Meta data
 
 BUGS
     Patches, flames, opinions, enhancement ideas are all welcome.
@@ -55,7 +56,7 @@ BUGS
     kind of support as long as it doesn't greatly affect the primary goals.
 
 COPYRIGHT
-    Copyright (c) 2012, Dana M. Diederich. All Rights Reserved.
+    Copyright (c) 2013, Dana M. Diederich. All Rights Reserved.
 
 LICENSE
     This module is free software. It may be used, redistributed and/or
