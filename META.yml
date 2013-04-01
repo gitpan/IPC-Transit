@@ -1,37 +1,40 @@
 ---
 abstract: 'A framework for high performance message passing'
 author:
+  - ', 2013 Dana M. Diederich. All Rights Reserved.'
   - 'Dana M. Diederich <diederich@gmail.com>'
 build_requires:
-  IPC::SysV: 0
-  IPC::Msg: 0
-  POSIX: 0
-  Data::Dumper: 0
-  Data::Serializer: 0
-  Test::Pod: 0
-  HTTP::Lite: 0
-  HTTP::Server::Simple::CGI: 0
+  ExtUtils::MakeMaker: 6.59
+  Test::More: 0
 configure_requires:
-  Module::Build: 0
+  ExtUtils::MakeMaker: 6.59
+  Module::Install: 0
+distribution_type: module
 dynamic_config: 1
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.120630'
-license: perl
+generated_by: 'Module::Install version 1.06'
+license: artistic2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: IPC-Transit
-provides:
-  IPC::Transit:
-    file: lib/IPC/Transit.pm
-    version: 0.6
+no_index:
+  directory:
+    - inc
+    - t
 requires:
-  IPC::SysV: 0
-  IPC::Msg: 0
-  POSIX: 0
   Data::Dumper: 0
+  Data::Serializer::Raw: 0
+  Getopt::Std: 0
+  HTTP::Lite: 0
+  HTTP::Server::Simple::CGI: 0
+  IPC::Msg: 0
+  IPC::SysV: 0
+  POSIX: 0
+  Storable: 0
+  perl: 5.6.0
 resources:
-  license: http://dev.perl.org/licenses/
   bugtracker: https://github.com/dana/perl-IPC-Transit/issues
   homepage: https://metacpan.org/module/IPC::Transit
+  license: http://www.perlfoundation.org/artistic_license_2_0
   repository: git://github.com/dana/perl-IPC-Transit.git
-version: 0.6
+version: 0.61
