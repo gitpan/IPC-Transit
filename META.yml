@@ -23,12 +23,12 @@ no_index:
     - t
 requires:
   Data::Dumper: 0
-  Data::Serializer::Raw: 0
   Getopt::Std: 0
   HTTP::Lite: 0
   HTTP::Server::Simple::CGI: 0
   IPC::Msg: 0
   IPC::SysV: 0
+  JSON: 0
   POSIX: 0
   Storable: 0
   perl: 5.6.0
@@ -37,4 +37,4 @@ resources:
   homepage: https://metacpan.org/module/IPC::Transit
   license: http://www.perlfoundation.org/artistic_license_2_0
   repository: git://github.com/dana/perl-IPC-Transit.git
-version: 0.61
+version: 0.71
