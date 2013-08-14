@@ -1,4 +1,7 @@
 package IPC::Transit::Test;
+{
+  $IPC::Transit::Test::VERSION = '1.132260';
+}
 
 use strict;use warnings;
 use Data::Dumper;

@@ -1,4 +1,7 @@
 package IPC::Transit::Internal;
+{
+  $IPC::Transit::Internal::VERSION = '1.132260';
+}
 
 use strict;
 use IPC::SysV;

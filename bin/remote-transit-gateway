@@ -2,6 +2,9 @@
 
 {
 package MyWebServer;
+{
+  $MyWebServer::VERSION = '1.132260';
+}
 
 use HTTP::Server::Simple::CGI;
 use Getopt::Std;

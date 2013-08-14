@@ -1,52 +1,98 @@
-use 5.006;
+
 use strict;
-use warnings FATAL => 'all';
-use inc::Module::Install;
-use inc::Module::Install::Scripts;
+use warnings;
 
-name     'IPC-Transit';
-all_from 'lib/IPC/Transit.pm';
-author   q{Dana M. Diederich <diederich@gmail.com>};
-license  'artistic2';
+use 5.006;
 
-perl_version 5.006;
+use ExtUtils::MakeMaker 6.30;
 
-tests_recursive('t');
 
-resources (
-   homepage   => 'https://metacpan.org/module/IPC::Transit',
-   #IRC        => 'irc://irc.perl.org/#IPC-Transit',
-   license    => 'http://www.perlfoundation.org/artistic_license_2_0',
-   repository => 'git://github.com/dana/perl-IPC-Transit.git',
-   bugtracker => 'https://github.com/dana/perl-IPC-Transit/issues',
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "A framework for high performance message passing",
+  "AUTHOR" => "Dana M. Diederich <dana\@realms.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "IPC-Transit",
+  "EXE_FILES" => [
+    "bin/qtrans",
+    "bin/remote-transit-gateway",
+    "bin/remote-transitd",
+    "bin/rtrans",
+    "bin/strans",
+    "bin/qtrans",
+    "bin/remote-transit-gateway",
+    "bin/remote-transitd",
+    "bin/rtrans",
+    "bin/strans"
+  ],
+  "LICENSE" => "perl",
+  "NAME" => "IPC::Transit",
+  "PREREQ_PM" => {
+    "Data::Dumper" => 0,
+    "File::Slurp" => 0,
+    "Getopt::Std" => 0,
+    "HTTP::Lite" => 0,
+    "HTTP::Server::Simple::CGI" => 0,
+    "IPC::Msg" => 0,
+    "IPC::SysV" => 0,
+    "JSON" => 0,
+    "POE" => 0,
+    "POSIX" => 0,
+    "Storable" => 0,
+    "base" => 0,
+    "strict" => 0,
+    "vars" => 0,
+    "warnings" => 0
+  },
+  "TEST_REQUIRES" => {
+    "English" => 0,
+    "File::Spec" => 0,
+    "Test::More" => 0,
+    "Test::Perl::Critic" => 0,
+    "Test::Perl::Critic::Progressive" => 0,
+    "Test::PerlTidy" => 0,
+    "lib" => 0
+  },
+  "VERSION" => "1.132260",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
 );
 
-configure_requires (
-   'Module::Install' => 0,
-);
 
-build_requires (
-   'Test::More' => 0,
-);
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  my $tr = delete $WriteMakefileArgs{TEST_REQUIRES};
+  my $br = $WriteMakefileArgs{BUILD_REQUIRES};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
-install_script( 'bin/qtrans',
-                'bin/remote-transitd',
-                'bin/remote-transit-gateway',
-                'bin/rtrans',
-                'bin/strans');
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
-requires (
-    'Data::Dumper' => 0,
-    'HTTP::Lite' => 0,
-    'IPC::SysV' => 0,
-    'IPC::Msg' => 0,
-    'POSIX' => 0,
-    'JSON' => 0,
-    'Storable' => 0,
-    'Getopt::Std' => 0,
-    'HTTP::Server::Simple::CGI' => 0,
-);
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
-install_as_cpan;
-auto_install;
-WriteAll;
+WriteMakefile(%WriteMakefileArgs);
+
+
+
