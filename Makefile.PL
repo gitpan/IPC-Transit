@@ -56,7 +56,7 @@ my %WriteMakefileArgs = (
     "Test::PerlTidy" => 0,
     "lib" => 0
   },
-  "VERSION" => "1.132260",
+  "VERSION" => "1.133280",
   "test" => {
     "TESTS" => "t/*.t"
   }

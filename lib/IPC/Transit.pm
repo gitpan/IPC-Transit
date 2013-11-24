@@ -1,6 +1,6 @@
 package IPC::Transit;
 {
-  $IPC::Transit::VERSION = '1.132260';
+  $IPC::Transit::VERSION = '1.133280';
 }
 
 use strict;use warnings;

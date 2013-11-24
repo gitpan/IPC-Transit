@@ -3,7 +3,7 @@
 {
 package MyWebServer;
 {
-  $MyWebServer::VERSION = '1.132260';
+  $MyWebServer::VERSION = '1.133280';
 }
 
 use HTTP::Server::Simple::CGI;

@@ -13,7 +13,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Zilla version 4.300039, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -37,6 +37,7 @@ requires:
   vars: 0
   warnings: 0
 resources:
+  bugtracker: https://github.com/dana/perl-IPC-Transit/issues
   homepage: https://github.com/dana/perl-IPC-Transit
   repository: https://github.com/dana/perl-IPC-Transit.git
-version: 1.132260
+version: 1.133280
